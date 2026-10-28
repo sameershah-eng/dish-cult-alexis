@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0B0B0D;
+  --color-coal: #141417;
+  --color-smoke: #1E1E23;
+  --color-cream: #F6F1EA;
+  --color-muted: #A8A29E;
+  --color-brand: #E5173F;
+  --color-ember: #FF5A36;
+  --color-saffron: #F7B733;
+
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+@layer base {
+  body {
+    background-color: #0B0B0D;
+    color: #F6F1EA;
+    font-family: var(--font-sans);
+  }
+}
+
+/* Film grain noise overlay */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Brand gradient utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #E5173F 0%, #FF5A36 55%, #F7B733 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #E5173F 0%, #FF5A36 55%, #F7B733 100%);
+}
+
+.border-brand-gradient {
+  border-image: linear-gradient(135deg, #E5173F 0%, #FF5A36 55%, #F7B733 100%) 1;
+}
+
+.ember-glow {
+  background: radial-gradient(ellipse at 50% 0%, rgba(229, 23, 63, 0.15) 0%, rgba(255, 90, 54, 0.06) 50%, transparent 75%);
+}
+
+/* Hide scrollbar for horizontal rails while keeping scrollability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Rotating conic gradient border animation */
+@keyframes spinConic {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-conic {
+  animation: spinConic 8s linear infinite;
+}
+
+/* Glass shine animation for primary pill button */
+@keyframes buttonShine {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  30%, 100% { transform: translateX(250%) skewX(-20deg); }
+}
+
+.animate-button-shine {
+  animation: buttonShine 6s ease-in-out infinite;
+}
+
+/* Frosted glass utilities with webkit prefix */
+.glass-panel-dark {
+  background: rgba(20, 20, 23, 0.45);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+
+.glass-panel-light {
+  background: rgba(246, 241, 234, 0.65);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+
+.nav-text-shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+

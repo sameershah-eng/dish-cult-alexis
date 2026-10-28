@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Dish Cult - Restaurant Discovery & Table Bookings</title>
+    <meta name="description" content="Discover exceptional dining, reserve real-time tables across 20+ cities, and order signature dishes with Dish Cult, powered by ResDiary." />
+    <meta name="theme-color" content="#0B0B0D" />
+    
+    <!-- Open Graph & Social -->
+    <meta property="og:title" content="Dish Cult - Restaurant Discovery & Table Bookings" />
+    <meta property="og:description" content="Discover exceptional dining, reserve real-time tables across 20+ cities, and order signature dishes with Dish Cult, powered by ResDiary." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dish Cult - Restaurant Discovery & Table Bookings" />
+    <meta name="twitter:description" content="Discover exceptional dining, reserve real-time tables across 20+ cities, and order signature dishes with Dish Cult, powered by ResDiary." />
+    
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    
+    <script>
+      // Global Google Maps authorization failure listener for client-side quota defense
+      window.gm_authFailure = function() {
+        window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+      };
+      const origConsoleError = console.error;
+      console.error = function() {
+        origConsoleError.apply(console, arguments);
+        const text = Array.from(arguments).map(a => String(a)).join(' ');
+        if (text.includes('OverQuotaMapError') || text.includes('QuotaExceededError')) {
+          window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+        }
+      };
+    </script>
+  </head>
+  <body class="bg-[#0B0B0D] text-[#F6F1EA] antialiased selection:bg-[#E5173F]/30 selection:text-[#F6F1EA] overflow-x-hidden min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

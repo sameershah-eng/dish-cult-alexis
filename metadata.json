@@ -1,0 +1,6 @@
+{
+  "name": "Dish Cult - Restaurant Discovery & Table Bookings",
+  "description": "Discover exceptional dining, reserve real-time tables across 20+ cities, and order signature dishes with Dish Cult, powered by ResDiary.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
