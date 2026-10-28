@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Clock, Users, Search, ChevronDown, Sparkles } from 'lucide-react';
 import { SmartImage } from '../ui/SmartImage';
+import { useLoader } from '../loader/LoaderContext';
 
 const HERO_SLIDES = [
   {
@@ -37,6 +38,7 @@ const SEARCH_PLACEHOLDERS = [
 ];
 
 export const HeroSection: React.FC = () => {
+  const { done } = useLoader();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -132,7 +134,7 @@ export const HeroSection: React.FC = () => {
         {/* Editorial Subtitle Kicker */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={done ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-smoke/60 border border-smoke backdrop-blur-md mb-6"
         >
@@ -145,7 +147,7 @@ export const HeroSection: React.FC = () => {
         {/* Headline: Staggered Words */}
         <motion.h1
           initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={done ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           transition={{ duration: 0.8, delay: 0.15 }}
           className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-cream max-w-4xl leading-[1.08] text-balance"
         >
@@ -156,7 +158,7 @@ export const HeroSection: React.FC = () => {
         {/* Subline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={done ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="font-sans text-sm sm:text-base md:text-lg text-muted/90 max-w-2xl mt-5 mb-10 leading-relaxed text-balance"
         >
@@ -166,7 +168,7 @@ export const HeroSection: React.FC = () => {
         {/* Floating Glass Booking Bar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={done ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.45 }}
           className="w-full max-w-4xl"
         >
@@ -266,7 +268,7 @@ export const HeroSection: React.FC = () => {
         {/* Trust Row */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={done ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-8 text-xs text-muted"
         >
@@ -281,7 +283,12 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Floating Live Mini-Cards Overlapping Edge (Desktop Only) */}
-      <div className="relative z-10 max-w-7xl mx-auto px-8 w-full hidden lg:flex justify-between items-end pointer-events-none">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={done ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.8, delay: 0.65 }}
+        className="relative z-10 max-w-7xl mx-auto px-8 w-full hidden lg:flex justify-between items-end pointer-events-none"
+      >
         {/* Floating card 1 */}
         <motion.div
           animate={{ y: [0, -8, 0] }}
@@ -335,7 +342,7 @@ export const HeroSection: React.FC = () => {
             </p>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -10,8 +10,10 @@ import { MobileBottomBar } from './MobileBottomBar';
 import { SearchModal } from '../ui/SearchModal';
 import { useScrollState } from '../../hooks/useScrollState';
 import { useFavoritesStore } from '../../store/useFavoritesStore';
+import { useLoader } from '../loader/LoaderContext';
 
 export const Navbar: React.FC = () => {
+  const { done } = useLoader();
   const { isScrolled, progress, navTheme, showBottomBar } = useScrollState();
   const { favorites } = useFavoritesStore();
   const location = useLocation();
@@ -99,7 +101,7 @@ export const Navbar: React.FC = () => {
         <motion.div
           layout
           initial={{ y: -24, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          animate={done ? { y: 0, opacity: 1 } : { y: -24, opacity: 0 }}
           transition={{
             layout: { type: 'spring', stiffness: 260, damping: 30 },
             y: { duration: 0.5, ease: 'easeOut' },

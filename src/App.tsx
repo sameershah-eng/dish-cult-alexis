@@ -5,7 +5,8 @@ import { Footer } from './components/layout/Footer';
 import { CartDrawer } from './components/cart/CartDrawer';
 import { ToastContainer } from './components/ui/ToastContainer';
 import { CustomCursor } from './components/ui/CustomCursor';
-import { Loader } from './components/ui/Loader';
+import { LoaderProvider } from './components/loader/LoaderContext';
+import Loader from './components/loader/Loader';
 
 // Lazy-loaded pages for optimal performance & code splitting
 const HomePage = lazy(() =>
@@ -58,10 +59,6 @@ function RouteFallback() {
 }
 
 export default function App() {
-  const [showLoader, setShowLoader] = useState(() => {
-    return !sessionStorage.getItem('dishcult_visited');
-  });
-
   const [mapsQuotaReached, setMapsQuotaReached] = useState(false);
 
   useEffect(() => {
@@ -72,14 +69,19 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <CustomCursor />
+      <LoaderProvider>
+        {/* Modern Concentric SVG Ring & Mark Loader */}
+        <Loader
+          preload={[
+            'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=85',
+          ]}
+        />
 
-      {/* Initial Visit Loader */}
-      {showLoader && <Loader onComplete={() => setShowLoader(false)} />}
+        <ScrollToTop />
+        <CustomCursor />
 
-      {/* Google Maps Platform Quota Defense Banner (Case A) */}
-      {mapsQuotaReached && (
+        {/* Google Maps Platform Quota Defense Banner (Case A) */}
+        {mapsQuotaReached && (
         <div className="bg-amber-500/90 text-black px-4 py-2 text-xs md:text-sm text-center sticky top-0 z-[60] shadow-sm font-medium">
           <span>
             Google Maps Platform quota reached. If you are the app owner, visit{' '}
@@ -131,6 +133,7 @@ export default function App() {
           </div>
         )}
       </div>
+      </LoaderProvider>
     </BrowserRouter>
   );
 }
